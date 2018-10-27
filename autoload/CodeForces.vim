@@ -9,7 +9,7 @@ let s:CodeForcesStatus = 'FINISHED'
 let s:CodeForcesStatusChanged = 1
 
 "{{{
-python << EOF
+python3 << EOF
 import requests
 import vim
 import shutil
@@ -19,7 +19,8 @@ import time
 import threading
 from time import sleep
 from HTMLParser import HTMLParser
-from urlparse import urljoin
+from urllib.parse import urljoin
+# from urlparse import urljoin
 
 # local server urls
 SERVER_HOST = 'localhost'
