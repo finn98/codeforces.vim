@@ -58,6 +58,7 @@ if int(contestId) > 100000:
     typeOfContest = 'gym/'
 lang           = '&lang='
 locale         = '?locale='
+# noinspection PyBroadException
 try:
     lang      += vim.eval('g:CodeForcesLang')
     locale    += vim.eval('g:CodeForcesLang')
@@ -268,14 +269,15 @@ class CodeForcesFriendsParser(HTMLParser):
         if tag == 'div':
             if self.parsing > 0:
                 self.parsing += 1
+            # noinspection PyBroadException
             try:
                 (x, y) = attrs[0]
-				if x == 'class' and y.find('datatable') != -1:
+                if x == 'class' and y.find('datatable') != -1:
 					self.parsing = 1
-            except: 42
-        if tag == 'a':
-			if self.parsing > 0:
-				self.friends+=attrs[0][1].split('/')[2]+"\n"
+            except:
+                var = 42
+        if tag == 'a' and self.parsing > 0:
+            self.friends+=attrs[0][1].split('/')[2]+"\n"
 
     def handle_endtag(self, tag):
         if tag == 'div':
@@ -530,8 +532,8 @@ else:
                 vim.current.buffer.append(s.encode('utf-8'))
             vim.command("3,$EasyAlign *| {'a':'c'}")
             del vim.current.buffer[0]
-    except Exception, e:
-        print e
+    except Exception as e:
+        print(e)
 EOF
 if s:CodeForcesStatusChanged == 1
     call CodeForces#CodeForcesColor()
@@ -858,7 +860,7 @@ try:
     vim.command('tabnext')
     vim.command('q')
     vim.command('cd %:p:h')
-except Exception, e:
+except Exception as e:
     print(e)
 EOF
 endfunction
