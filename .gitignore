@@ -3,3 +3,4 @@
 *.users
 *.friends
 .idea/
+autoload/cf.py
