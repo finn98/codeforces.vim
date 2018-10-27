@@ -327,7 +327,7 @@ EOF
 function! CodeForces#CodeForcesParseContest() "{{{
 let directory = expand('%:p:h')
 echom 'Parsing contest'
-python << EOF
+python3 << EOF
 
 def parse(folder, cf_domain, contestId, index, flag):
     parsed = parse_problem(folder, cf_domain, contestId, index, True)
@@ -401,7 +401,7 @@ endfunction
 
 function! CodeForces#CodeForcesStandings(...) "{{{
 "DO NOT TOUCH IT, IT WORKS
-python << EOF
+python3 << EOF
 if vim.eval('a:0') == '1':
     vim.command('let g:CodeForcesContestId = a:1')
 if vim.eval('g:CodeForcesContestId') == 0:
@@ -563,7 +563,7 @@ endfunction
 
 function! CodeForces#CodeForcesSetRound(id) "{{{
     let g:CodeForcesContestId = a:id
-python << EOF
+python3 << EOF
 contestId = vim.eval('g:CodeForcesContestId')
 init_contest(contestId)
 typeOfContest  = 'contest/'
@@ -590,7 +590,7 @@ function! CodeForces#CodeForcesColor() "{{{
     let x = matchadd(color, ' +[0-9]\+')
     let x = matchadd(color, ' [0-9][0-9][0-9]\+')
     let x = matchadd('Red', ' -[0-9]\+')
-python << EOF
+python3 << EOF
 users = open(prefix + '/codeforces.users', 'r')
 for user in users:
     if not ' ' in user:
@@ -603,7 +603,7 @@ endfunction
 "}}}
 
 function! CodeForces#CodeForcesSubmission() "{{{
-python << EOF
+python3 << EOF
 
 (row, col) = vim.current.window.cursor
 [n, handle, hacks, score, tasks] = vim.current.buffer[row - 1].split('|', 4)
@@ -665,7 +665,7 @@ endfunction
 "}}}
 
 function! CodeForces#CodeForcesUserSubmissions() "{{{
-python << EOF
+python3 << EOF
 
 
 def formatString(s):
@@ -694,7 +694,7 @@ endfunction
 "}}}
 
 function! CodeForces#CodeForcesSubmitIndexed(contestId, problemIndex) "{{{
-python << EOF
+python3 << EOF
 
 filename   = vim.eval('a:problemIndex')
 extension  = vim.eval("expand('%:e')").lower()
@@ -734,7 +734,7 @@ endfunction
 
 function! CodeForces#CodeForcesLoadTaskContestId(contestId, index, tests) "{{{
 let directory = expand('%:p:h')
-python << EOF
+python3 << EOF
 
 index = vim.eval('a:index').upper()
 contestId = vim.eval('a:contestId')
@@ -784,7 +784,7 @@ endfunction
 "}}}
 
 function! CodeForces#CodeForcesContestList() "{{{
-python << EOF
+python3 << EOF
 
 response = requests.get(http + 'data/contests')
 if response.status_code == requests.codes.ok:
@@ -845,7 +845,7 @@ endfunction
 "}}}
 
 function! CodeForces#CodeForcesOpenContest() "{{{
-python << EOF
+python3 << EOF
 try:
     problems = getProblems(contestId)
     (x, y) = problems[0]
@@ -866,7 +866,7 @@ endfunction
 "}}}
 
 function! CodeForces#CodeForcesInitServer() "{{{
-python << EOF
+python3 << EOF
 init_server(username, password)
 init_contest(contestId)
 EOF
