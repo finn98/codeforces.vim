@@ -25,7 +25,7 @@ from urllib.parse import urljoin
 # local server urls
 SERVER_HOST = 'localhost'
 SERVER_PORT = 8200
-SERVER_ADDR = 'http://{}:{}/'.format(SERVER_HOST, SERVER_PORT)
+SERVER_ADDR = 'https://{}:{}/'.format(SERVER_HOST, SERVER_PORT)
 
 # local server routes
 INIT_SERVER_PART = 'init_server'
@@ -34,7 +34,7 @@ SUBMIT_PART = 'submit'
 GET_FRIENDS_PART = 'get_friends'
 
 # codeforces urls
-CF_MAIN_URL = 'http://codeforces.com/'
+CF_MAIN_URL = 'https://codeforces.com/'
 CF_LOGIN_URL = urljoin(CF_MAIN_URL, 'enter')
 
 SAMPLE_INPUT   = vim.eval('g:CodeForcesInput')
@@ -50,7 +50,7 @@ password       = vim.eval('g:CodeForcesPassword')
 countSt        = vim.eval('g:CodeForcesCount')
 updateInterval = vim.eval('g:CodeForcesUpdateInterval')
 countOfSubmits = vim.eval('g:CodeForcesCountOfSubmits')
-http           = 'http://codeforces.' + cf_domain + '/'
+http           = 'https://codeforces.' + cf_domain + '/'
 api            = http + 'api/'
 phase          = 0
 typeOfContest  = 'contest/'
@@ -113,7 +113,7 @@ def submit(problem_id, lang, filename):
     requests.post(urljoin(SERVER_ADDR, SUBMIT_PART), data=data)
 
 def get_friends():
-	return requests.get(urljoin(SERVER_ADDR, GET_FRIENDS_PART))
+    return requests.get(urljoin(SERVER_ADDR, GET_FRIENDS_PART))
 
 #}}}
 
@@ -273,7 +273,7 @@ class CodeForcesFriendsParser(HTMLParser):
             try:
                 (x, y) = attrs[0]
                 if x == 'class' and y.find('datatable') != -1:
-					self.parsing = 1
+                    self.parsing = 1
             except:
                 var = 42
         if tag == 'a' and self.parsing > 0:
@@ -311,14 +311,14 @@ def color(rating):
 
 # Should be working
 def loadFriends():
-	r = get_friends().text.encode('utf-8')
-	parser = CodeForcesFriendsParser()
-	parser.feed(r + locale)
-	friends = parser.friends
-	counter = 0
-	fileFriends = open(prefix + '/codeforces.friends', 'w')
-	fileFriends.write(friends)
-	print("Friend list loaded succesfully")
+    r = get_friends().text.encode('utf-8')
+    parser = CodeForcesFriendsParser()
+    parser.feed(r + locale)
+    friends = parser.friends
+    counter = 0
+    fileFriends = open(prefix + '/codeforces.friends', 'w')
+    fileFriends.write(friends)
+    print("Friend list loaded succesfully")
 
 def getProblems(contestId):
     return [(x['index'], x['name']) for x in requests.get(api + 'contest.standings?contestId=%s%s' % (contestId, lang)  ).json()['result']['problems']]
@@ -607,7 +607,7 @@ function! CodeForces#CodeForcesSubmission() "{{{
 python3 << EOF
 
 (row, col) = vim.current.window.cursor
-[n, handle, hacks, score, tasks] = vim.current.buffer[row - 1].split('|', 4)
+[[n], [handle], [hacks], [score], [tasks]] = vim.current.buffer[row - 1].split('|', 4)
 col -= len(n + handle + hacks + score) + 4
 if col >= 0 and tasks[col] != '|' and row > 2:
     submissions = tasks.split('|')

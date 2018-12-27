@@ -15,7 +15,7 @@ from flask import g
 # local server urls
 SERVER_HOST = 'localhost'
 SERVER_PORT = 8200
-SERVER_ADDR = 'http://{}:{}/'.format(SERVER_HOST, SERVER_PORT)
+SERVER_ADDR = 'https://{}:{}/'.format(SERVER_HOST, SERVER_PORT)
 
 # local server routes
 INIT_SERVER_PART = 'init_server'
@@ -24,7 +24,7 @@ SUBMIT_PART = 'submit'
 GET_FRIENDS_PART = 'get_friends'
 
 # codeforces urls
-CF_MAIN_URL = 'http://codeforces.com/'
+CF_MAIN_URL = 'https://codeforces.com/'
 CF_LOGIN_URL = urljoin(CF_MAIN_URL, 'enter')
 CF_FRIENDS_URL = urljoin(CF_MAIN_URL, 'friends')
 
